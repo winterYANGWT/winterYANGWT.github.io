@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas,"Microsoft Yahei Mono":300,300italic,400,400italic,700,700italic|Consolas,"Microsoft Yahei Mono":300,300italic,400,400italic,700,700italic|Consolas,"Microsoft Yahei Mono":300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Survey,Attention," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文通过分类法介绍了一些注意力机制、注意力机制在一些领域的应用和注意力机制的可视化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[论文阅读]0x0000-An Attentive Survey of Attention Models">
+<meta property="og:url" content="http://yoursite.com/2021/01/29/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0000-An-Attentive-Survey-of-Attention-Models/index.html">
+<meta property="og:site_name" content="The magic of computer science">
+<meta property="og:description" content="本文通过分类法介绍了一些注意力机制、注意力机制在一些领域的应用和注意力机制的可视化">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0000/0.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0000/1.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0000/2.png">
+<meta property="article:published_time" content="2021-01-29T11:51:59.000Z">
+<meta property="article:modified_time" content="2021-02-16T15:22:13.818Z">
+<meta property="article:author" content="Winteryan">
+<meta property="article:tag" content="Survey">
+<meta property="article:tag" content="Attention">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0000/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/01/29/Paper/论文阅读-0x0000-An-Attentive-Survey-of-Attention-Models/"/>
+
+
+
+
+
+  <title>[论文阅读]0x0000-An Attentive Survey of Attention Models | The magic of computer science</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">The magic of computer science</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Winteryan's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/29/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0000-An-Attentive-Survey-of-Attention-Models/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Winteryan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/setting/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The magic of computer science">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[论文阅读]0x0000-An Attentive Survey of Attention Models</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-29T19:51:59+08:00">
+                2021-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文通过分类法介绍了一些注意力机制、注意力机制在一些领域的应用和注意力机制的可视化</p>
+<a id="more"></a>
+<hr>
+<h1 id="注意力机制介绍"><a href="#注意力机制介绍" class="headerlink" title="注意力机制介绍"></a>注意力机制介绍</h1><p>注意力机制背后的直觉可以用人类的生物系统来解释。人类的视觉处理系统会选择性关注特定的部分并且忽略其他部分。所以在对信息的处理中，信息的某个部分会比其他部分更重要。注意力机制就是让模型自动关注输入的某个部分。</p>
+<h2 id="早期的注意力机制"><a href="#早期的注意力机制" class="headerlink" title="早期的注意力机制"></a>早期的注意力机制</h2><p>在1964年，<a href="https://epubs.siam.org/doi/10.1137/1109020" target="_blank" rel="noopener">Nadaraya</a>和<a href="https://www.jstor.org/stable/25049340" target="_blank" rel="noopener">Waston</a>就提出了注意力的思想。假设训练集$D=\{ (x_1,y_1),(x_2,y_2),\cdots,(x_n,y_n) \}$。现给出一个新的输入$x$，需要预测目标值$\hat{y}$。一个超简单的模型会直接给出$\hat{y}=\frac{1}{n} \sum_{i=1}^{n}{y_i}$。有一个更好的模型，这个模型使用加权平均给出目标值，且权值取决于$x$和训练集中样本$x_i$的相关度相关，$\hat{y}=\sum_{i=1}^{n}{\alpha(x,x_i)y_i}$，$\alpha(x,x_i)$是权重函数（值与$x$和$x_i$之间的关系有关，一般选用正则化高斯核）。</p>
+<h2 id="Bahdanau注意力机制"><a href="#Bahdanau注意力机制" class="headerlink" title="Bahdanau注意力机制"></a>Bahdanau注意力机制</h2><p>最早的注意力机制由<a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="noopener">Bahdanau</a>提出并应用在seq2seq中，seq2seq是一个Encoder-Decoder结构的模型。Encoder是一个RNN，输入序列$\{ x_1,x_2,\cdots,x_T \}$，并编码出$\{ h_1,h_2,\cdots,h_T \}$等状态。Decoder也是一个RNN，输入Encoder最后的状态$h_T$，并输出序列$\{ y_1,y_2,\cdots,y_{T^{‘}} \}$。$h_t$和$s_t$代表Encoder和Decoder在时刻$t$的状态。</p>
+<p>引入注意力机制后，Decoder在时刻$j$的输入不再是$h_T$，而是Encoder所有时刻状态的加权平均$c_j=\sum_{i=1}^{T}{\alpha_{ij}h_i}$，权重$\alpha_{ij}$由Decoder上一时刻的状态$s_{j-1}$和Encoder第$i$个时刻的状态$h_i$之间的关系决定。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0000/0.png" alt="0"></p>
+<p>传统seq2seq和带注意力机制的seq2seq之间的区别就如下表所示。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">模型</th>
+<th style="text-align:center">带注意力机制的seq2seq</th>
+<th style="text-align:center">传统seq2seq</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">encode</td>
+<td style="text-align:center">$h_i=f(x_i,h_{i-1})$</td>
+<td style="text-align:center">$h_i=f(x_i,h_{i-1})$</td>
+</tr>
+<tr>
+<td style="text-align:center">context</td>
+<td style="text-align:center">$c_j=\sum_{i=1}^{T}{\alpha_{ij}h_i}$ $\alpha_{ij}=p(e_{ij})$ $e_{ij}=a(s_{j-1},h_i)$</td>
+<td style="text-align:center">$c=h_T$</td>
+</tr>
+<tr>
+<td style="text-align:center">decode</td>
+<td style="text-align:center">$s_j=g(s_{j-1},y_{j-1},c_{j})$</td>
+<td style="text-align:center">$s_j=g(s_{j-1},y_{j-1},c)$</td>
+</tr>
+<tr>
+<td style="text-align:center">output</td>
+<td style="text-align:center">$y_j=h(y_{j-1},s_j,c_j)$</td>
+<td style="text-align:center">$y_j=h(y_{j-1},s_j,c)$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="广义注意力机制"><a href="#广义注意力机制" class="headerlink" title="广义注意力机制"></a>广义注意力机制</h2><p>广义的注意力机制对上面所提到的注意力机制进行了抽象，可以看作根据一个查询$q$将键序列$K=\{ k_1,k_2,\cdots,k_T \}$映射为注意力权值$\alpha=\{ \alpha_1,\alpha_2,\cdots,\alpha_T \}$。注意力权值的意味着键序列中的键与查询的相关度，有$e=a(K,q)$和$\alpha=p(e)$这两个映射关系。得到注意力权值后，就将注意力权值和与$K$一一对应的值序列$V=\{ v_1,v_2,\cdots,v_T \}$相乘。广义的注意力机制就表示为下列的公式。</p>
+<script type="math/tex; mode=display">A(q,K,V)=\sum_{i=1}^T{p(a(k_i,q)) \cdot v_i}</script><p>Naradara和Waston的注意力机制中，$k_i$就是$x_i$，$v_i$就是$y_i$，$q$就是$x$。</p>
+<p>Bahdanau注意力机制中，$k_i$和$v_i$都是Encoder的状态$h_i$，$q$是Decoder上一时刻的状态$s_{j-1}$。</p>
+<h1 id="注意力机制分类"><a href="#注意力机制分类" class="headerlink" title="注意力机制分类"></a>注意力机制分类</h1><h2 id="以序列分类"><a href="#以序列分类" class="headerlink" title="以序列分类"></a>以序列分类</h2><ul>
+<li><p>独立注意力：$K$和$q$分别来自输入和输出序列。<a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="noopener">Bahdanau</a>，<a href="https://arxiv.org/abs/1502.03044" target="_blank" rel="noopener">Xu</a>和<a href="https://ieeexplore.ieee.org/document/7472621" target="_blank" rel="noopener">Chan</a>的注意力就属于这一类</p>
+</li>
+<li><p>共注意力：有多个输入序列，其中一个序列的状态作为$q$，其他序列作为$K$，不断计算其中一个序列与其他序列的相关度。以<a href="https://arxiv.org/abs/1606.00061" target="_blank" rel="noopener">Lu</a>在VQA中应用的注意力机制为例，VQA有图像和问题这两个序列，图像和问题具有非常紧密的联系，分别计算图像对问题的注意力和问题对图像的注意力，就可以得到当前图像对应问题中最重要的词和当前词对应图像中最重要的位置</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0000/1.png" alt="1"></p>
+</li>
+<li><p>自注意力：一些任务的输入是序列，但输出却不是序列，注意力机制就学习输入序列中元素与元素之间的关系。这种注意力机制只需要一个序列就可以进行。<a href="https://www.cs.cmu.edu/~./hovy/papers/16HLT-hierarchical-attention-networks.pdf" target="_blank" rel="noopener">Yang</a>在文档识别中提出了这种注意力机制</p>
+</li>
+</ul>
+<h2 id="以抽象级分类"><a href="#以抽象级分类" class="headerlink" title="以抽象级分类"></a>以抽象级分类</h2><p>单层注意力：大多数注意力机制都属于这种，计算出来的注意力权重直接作用于原来的输入序列</p>
+<p>多层注意力：多个注意力叠在一起形成层次，低层注意力的输出成为高层注意力的$q$。如上图的左边所示，从单词的注意力到短语的注意力最后得到整个句子的注意力。也可以看到随着注意力等级的提高，与之在图像上对应的区域也更加关注到答案，作者也说更高级注意力带来的表示能够避免次优解</p>
+<h2 id="以注意力的位置分类"><a href="#以注意力的位置分类" class="headerlink" title="以注意力的位置分类"></a>以注意力的位置分类</h2><p>软注意力：<a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="noopener">Bahdanau</a>的注意力就是此类，对$K$中所有的键进行加权平均得到上下文向量，可以直接进行方向传播</p>
+<p>硬注意力：由<a href="https://arxiv.org/abs/1502.03044" target="_blank" rel="noopener">Xu</a>提出，上下文向量从$K$中随机取样得到。取样通过由注意力权重初始化的伯努利分布得到。这种注意力机制不可微，需要一些强化学习的方法来解决</p>
+<p>局部注意力：处于软注意力和硬注意力之间，先在$K$中找到一个注意力点，再在这个注意力点的周围生成一个小窗口，在小窗口里计算注意力权重并作用于这个窗口内的键得到上下文向量</p>
+<p>全局注意力机制：与软注意力类似</p>
+<h2 id="以表征分类"><a href="#以表征分类" class="headerlink" title="以表征分类"></a>以表征分类</h2><p>多表征注意力：一般的任务通常只对输入提取出单个特征，一些任务中会提取出多个特征，这时就可以计算不同特征的注意力权重最后加权合并为最后的特征。这种方法能够决定哪些特征更具有相关性。<a href="https://arxiv.org/abs/1804.07983" target="_blank" rel="noopener">Kiela</a>使用注意力机制应用于输入句子的不同词嵌入来提高句子的表征。<a href="https://www.aclweb.org/anthology/D18-1375/" target="_blank" rel="noopener">Maharjan</a>使用注意力机制应用于书籍的不同特征获得词法，语法，视觉和体裁信息</p>
+<p>多维度注意力： 提取到多维的特征后，对维度计算注意力权重，找到哪一个维度更具有相关性。<a href="https://arxiv.org/abs/1703.03130" target="_blank" rel="noopener">Lin</a>使用注意力机制提高句子的词嵌入表示。<a href="https://arxiv.org/abs/1709.04696" target="_blank" rel="noopener">Shen</a>使用注意力机制处理语言处理能力。</p>
+<h1 id="注意力机制在网络结构中的应用"><a href="#注意力机制在网络结构中的应用" class="headerlink" title="注意力机制在网络结构中的应用"></a>注意力机制在网络结构中的应用</h1><ul>
+<li>Encoder-Decoder：Encoder可以将输入编码为多个状态，在Decoder进行解码时可以使用注意力机制将编码出的状态进行加权得到新的状态来辅助解码</li>
+<li>Transformer：由<a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Vasawani</a>提出了这一种网络结构，消除了RNN低效的序列递归处理而改用自注意力的形式来捕捉输入与输出之间的关系</li>
+<li>Memory Networks：这种网络基于一个知识库，并使用一组记忆块来存储表示这些知识，网络的输入就可以看作是一个查询，使用注意力机制来找出合适的记忆块来回答这个查询</li>
+</ul>
+<h1 id="注意力机制的应用"><a href="#注意力机制的应用" class="headerlink" title="注意力机制的应用"></a>注意力机制的应用</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">领域</th>
+<th style="text-align:center">应用</th>
+<th style="text-align:center">相关工作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">自然语言处理</td>
+<td style="text-align:center">机器翻译</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="noopener">Bahdanau</a>、<a href="https://arxiv.org/abs/1508.04025" target="_blank" rel="noopener">Luong</a>、<a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Vasawani</a>、<a href="https://arxiv.org/abs/1703.03906" target="_blank" rel="noopener">Britz</a>、<a href="https://arxiv.org/abs/1808.08946" target="_blank" rel="noopener">Tang</a></td>
+</tr>
+<tr>
+<td style="text-align:center">自然语言处理</td>
+<td style="text-align:center">问答</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1506.03340" target="_blank" rel="noopener">Hermann</a>、<a href="https://arxiv.org/abs/1503.08895" target="_blank" rel="noopener">Sukhbaatar</a></td>
+</tr>
+<tr>
+<td style="text-align:center">自然语言处理</td>
+<td style="text-align:center">概要</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1509.00685" target="_blank" rel="noopener">Rush</a>、<a href="https://arxiv.org/abs/1602.06023" target="_blank" rel="noopener">Nallapati</a>、<a href="https://nlp.seas.harvard.edu/papers/naacl16_summary.pdf" target="_blank" rel="noopener">Chopra</a></td>
+</tr>
+<tr>
+<td style="text-align:center">自然语言处理</td>
+<td style="text-align:center">文本识别</td>
+<td style="text-align:center"><a href="https://www.cs.cmu.edu/~./hovy/papers/16HLT-hierarchical-attention-networks.pdf" target="_blank" rel="noopener">Yang</a></td>
+</tr>
+<tr>
+<td style="text-align:center">自然语言处理</td>
+<td style="text-align:center">文本表征学习</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1810.04805" target="_blank" rel="noopener">Devlin</a>、<a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf" target="_blank" rel="noopener">Radford</a>、<a href="https://arxiv.org/abs/1703.03130" target="_blank" rel="noopener">Lin</a>、<a href="https://arxiv.org/abs/1804.07983" target="_blank" rel="noopener">Kiela</a></td>
+</tr>
+<tr>
+<td style="text-align:center">自然语言处理</td>
+<td style="text-align:center">情绪分析</td>
+<td style="text-align:center"><a href="https://www.aclweb.org/anthology/D16-1058/" target="_blank" rel="noopener">Wang</a>、<a href="https://www.aaai.org/ocs/index.php/AAAI/AAAI18/paper/view/16541" target="_blank" rel="noopener">Ma</a>、<a href="https://arxiv.org/abs/1605.08900" target="_blank" rel="noopener">Tang</a>、<a href="https://arxiv.org/abs/1812.07860" target="_blank" rel="noopener">Ambartsoumian</a></td>
+</tr>
+<tr>
+<td style="text-align:center">计算机视觉</td>
+<td style="text-align:center">图像识别</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1406.6247" target="_blank" rel="noopener">Mnih</a>、<a href="https://arxiv.org/abs/1804.02391" target="_blank" rel="noopener">Jetley</a></td>
+</tr>
+<tr>
+<td style="text-align:center">计算机视觉</td>
+<td style="text-align:center">图像生成</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1502.04623" target="_blank" rel="noopener">Gregor</a>、<a href="https://arxiv.org/abs/1802.05751" target="_blank" rel="noopener">Parmar</a>、<a href="https://arxiv.org/abs/1805.08318" target="_blank" rel="noopener">Zhang</a></td>
+</tr>
+<tr>
+<td style="text-align:center">计算机视觉</td>
+<td style="text-align:center">目标检测</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1412.7755" target="_blank" rel="noopener">Ba</a></td>
+</tr>
+<tr>
+<td style="text-align:center">多模态</td>
+<td style="text-align:center">视频描述</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1502.03044" target="_blank" rel="noopener">Xu</a>、<a href="https://arxiv.org/abs/1502.08029" target="_blank" rel="noopener">Yao</a>、<a href="https://arxiv.org/abs/1406.1078" target="_blank" rel="noopener">Cho</a></td>
+</tr>
+<tr>
+<td style="text-align:center">多模态</td>
+<td style="text-align:center">语音识别</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1506.07503" target="_blank" rel="noopener">Chorowski</a>、<a href="https://arxiv.org/abs/1508.01211" target="_blank" rel="noopener">Chan</a></td>
+</tr>
+<tr>
+<td style="text-align:center">多模态</td>
+<td style="text-align:center">视觉问答</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1606.00061" target="_blank" rel="noopener">Lu</a>、<a href="https://arxiv.org/abs/1707.07998" target="_blank" rel="noopener">Anderson</a></td>
+</tr>
+<tr>
+<td style="text-align:center">多模态</td>
+<td style="text-align:center">人类交流理解</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1802.00923" target="_blank" rel="noopener">Zadeh</a></td>
+</tr>
+<tr>
+<td style="text-align:center">图网络</td>
+<td style="text-align:center">图识别</td>
+<td style="text-align:center"><a href="https://www.kdd.org/kdd2018/accepted-papers/view/graph-classification-using-structural-attention" target="_blank" rel="noopener">Lee</a>、<a href="https://arxiv.org/abs/1706.05764" target="_blank" rel="noopener">Ma</a></td>
+</tr>
+<tr>
+<td style="text-align:center">图网络</td>
+<td style="text-align:center">图序列生成</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1806.09835" target="_blank" rel="noopener">Beck</a></td>
+</tr>
+<tr>
+<td style="text-align:center">图网络</td>
+<td style="text-align:center">节点识别</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1710.10903" target="_blank" rel="noopener">Velickovic</a>、<a href="https://arxiv.org/abs/1710.09599" target="_blank" rel="noopener">Abu-El-Haija</a>、<a href="https://www.aclweb.org/anthology/C16-1062/" target="_blank" rel="noopener">Feng</a></td>
+</tr>
+<tr>
+<td style="text-align:center">图网络</td>
+<td style="text-align:center">边预测</td>
+<td style="text-align:center"><a href="https://www.ijcai.org/Proceedings/2017/493" target="_blank" rel="noopener">Zhao</a></td>
+</tr>
+<tr>
+<td style="text-align:center">推荐系统</td>
+<td style="text-align:center">协同过滤</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1809.07053" target="_blank" rel="noopener">He</a>、<a href="https://arxiv.org/abs/1902.07494" target="_blank" rel="noopener">Shuai Yu</a></td>
+</tr>
+<tr>
+<td style="text-align:center">推荐系统</td>
+<td style="text-align:center">序列推荐</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1711.06632" target="_blank" rel="noopener">Zhou</a>、<a href="https://arxiv.org/abs/1808.09781" target="_blank" rel="noopener">Kang</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="可解释性"><a href="#可解释性" class="headerlink" title="可解释性"></a>可解释性</h1><p>长期以来，可解释性就是深度学习所缺乏的，也是研究热点。注意力机制具有很好的可解释性，因为其注意力权重大小可以认为是对输入的不同部分的关联程度。下图是注意力机制的可视化。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0000/2.png" alt="2"></p>
+<p>一些相关的工作认为注意力权重与特征重要性分析无关。<a href="https://arxiv.org/abs/1902.10186" target="_blank" rel="noopener">Jain</a>进行了两个分析来观察注意力权重改变对预测的敏感性和通过随机排列和对抗训练改变注意力权重不会改变预测。<a href="https://arxiv.org/abs/1906.03731" target="_blank" rel="noopener">Serrano</a>得到注意力权重只是输入序列特点区域相对重要性的噪声预测器，不应该视为模型预测的判断因素。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Survey/" rel="tag"># Survey</a>
+          
+            <a href="/tags/Attention/" rel="tag"># Attention</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/18/Book/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%950x03-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/" rel="next" title="[书籍阅读]统计学习方法0x03-朴素贝叶斯">
+                <i class="fa fa-chevron-left"></i> [书籍阅读]统计学习方法0x03-朴素贝叶斯
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/15/Book/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%950x02-k%E8%BF%91%E9%82%BB%E6%B3%95/" rel="prev" title="[书籍阅读]统计学习方法0x02-k近邻法">
+                [书籍阅读]统计学习方法0x02-k近邻法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/setting/avatar.png"
+                alt="Winteryan" />
+            
+              <p class="site-author-name" itemprop="name">Winteryan</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog. I am interested in computer science and I would like to share my knowlegde with everyone.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/winterYANGWT" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:q916090796@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.acfun.cn/u/13517934" target="_blank" title="AcFun">
+                      
+                        <i class="fa fa-fw fa-video-camera"></i>AcFun</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注意力机制介绍"><span class="nav-number">1.</span> <span class="nav-text">注意力机制介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#早期的注意力机制"><span class="nav-number">1.1.</span> <span class="nav-text">早期的注意力机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bahdanau注意力机制"><span class="nav-number">1.2.</span> <span class="nav-text">Bahdanau注意力机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#广义注意力机制"><span class="nav-number">1.3.</span> <span class="nav-text">广义注意力机制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意力机制分类"><span class="nav-number">2.</span> <span class="nav-text">注意力机制分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#以序列分类"><span class="nav-number">2.1.</span> <span class="nav-text">以序列分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以抽象级分类"><span class="nav-number">2.2.</span> <span class="nav-text">以抽象级分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以注意力的位置分类"><span class="nav-number">2.3.</span> <span class="nav-text">以注意力的位置分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以表征分类"><span class="nav-number">2.4.</span> <span class="nav-text">以表征分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意力机制在网络结构中的应用"><span class="nav-number">3.</span> <span class="nav-text">注意力机制在网络结构中的应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意力机制的应用"><span class="nav-number">4.</span> <span class="nav-text">注意力机制的应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可解释性"><span class="nav-number">5.</span> <span class="nav-text">可解释性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2020 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Winteryan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.gt-container a{border-bottom:none;}
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

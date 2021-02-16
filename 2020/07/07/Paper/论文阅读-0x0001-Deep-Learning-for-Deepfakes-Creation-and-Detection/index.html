@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas,"Microsoft Yahei Mono":300,300italic,400,400italic,700,700italic|Consolas,"Microsoft Yahei Mono":300,300italic,400,400italic,700,700italic|Consolas,"Microsoft Yahei Mono":300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DeepFake," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="深度伪造和深度检测的综述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[论文阅读]0x0001-Deep Learning for Deepfakes Creation and Detection">
+<meta property="og:url" content="http://yoursite.com/2020/07/07/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0001-Deep-Learning-for-Deepfakes-Creation-and-Detection/index.html">
+<meta property="og:site_name" content="The magic of computer science">
+<meta property="og:description" content="深度伪造和深度检测的综述">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0001/0.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0001/1.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0001/2.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0001/3.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0001/4.png">
+<meta property="article:published_time" content="2020-07-06T18:20:51.000Z">
+<meta property="article:modified_time" content="2020-08-31T08:45:35.000Z">
+<meta property="article:author" content="Winteryan">
+<meta property="article:tag" content="DeepFake">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0001/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/07/Paper/论文阅读-0x0001-Deep-Learning-for-Deepfakes-Creation-and-Detection/"/>
+
+
+
+
+
+  <title>[论文阅读]0x0001-Deep Learning for Deepfakes Creation and Detection | The magic of computer science</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">The magic of computer science</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Winteryan's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/07/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0001-Deep-Learning-for-Deepfakes-Creation-and-Detection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Winteryan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/setting/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The magic of computer science">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[论文阅读]0x0001-Deep Learning for Deepfakes Creation and Detection</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-07T02:20:51+08:00">
+                2020-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>深度伪造和深度检测的综述</p>
+<a id="more"></a>
+<hr>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>深度学习成功解决了许多大数据分析、计算机视觉和人工控制的复杂问题。但人工智能的进步也被用来开发对隐私、民主和国家安全造成威胁的软件，其中一个就是最近出现的深度伪造。深度伪造可以生成人无法分辨的虚假图像和视频。所以需要能够自动检测和评估数字媒体完整性的技术。本文提供了创造深度伪造的算法和检测深度伪造的算法。我们对目前的挑战、研究趋势和技术方向进行了延申讨论。本文通过回顾深度伪造和深度伪造检测的方法来对深度伪造形成一个完整的了解并促进更新更健壮的技术发展来应对持续增长的挑战。</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="深度伪造"><a href="#深度伪造" class="headerlink" title="深度伪造"></a>深度伪造</h2><p>正如深度伪造的名字所示，深度伪造就是依赖深度学习表示复杂和高维数据的强大能力来伪造视频。深度网络其中一个模型就是AE，AE经常用来进行维度削减和图像压缩。深度伪造的第一次尝试是FakeApp，使用的模型是AE。AE提取人脸图像里的潜在特征，解码器进行重建人脸图像。在两幅人脸的交换过程中，需要两对AE，每一对AE对一组人脸图像进行训练。这两对AE共享使用同一个编码器来发现这两组图像之间的相似特征，因为每个人的脸都具有很多的相似之处。下图展示了合成的过程，在训练完成后，使用编码器将A的脸部特征输入到B的解码器中来在A的脸上进行B的脸的重构。这种方法被同样应用到了DeepFaceLab、DFaker、DeepFake-tf。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0001/0.png" alt="0"></p>
+<p>给AE加上VGGFace的对抗损失和感知损失，得到了基于GAN的强化版本Faceswap-GAN，使得眼睛的移动更加真实，与原来的脸更一致，失真也更加平滑，产生了更高质量的视频。另外，FaceNet的使用也可以进行更稳定的人脸检测和人脸对齐，CycleGAN也被用来作为生成网络。</p>
+<h2 id="深度伪造检测"><a href="#深度伪造检测" class="headerlink" title="深度伪造检测"></a>深度伪造检测</h2><p>早期的深度伪造检测通过手动提取伪造视频中的失真和不一致处。最近的深度学习方法能够自动提取显著特征来进行伪造检查。深度伪造检测一般被认为是一个二分类问题。深度学习方法需要大量的真实视频和虚假视频来训练模型。虽然虚假视频的数量正在不断增加，但是作为验证不同检测方法的基准测试来说还是有限。为了解决这个问题，<a href="https://ieeexplore.ieee.org/abstract/document/8987375" target="_blank" rel="noopener">Korshunov和Marcel</a>创造了DeepfakeTIMIT，该数据集的620个视频都是对VidTIMIT使用Faceswap-GAN生成的。这些视频被用来测试许多伪造检查方法，基于VGG和FaceNet的方法无法有效进行检测，基于嘴唇与音频的一致性和图像质量的SVM也产生了高错误率，所以在未来需要更加具有健壮性和泛化性的检测方法。深度伪造检测方法可以按下图进行分类。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0001/1.png" alt="1"></p>
+<h3 id="虚假图像检测"><a href="#虚假图像检测" class="headerlink" title="虚假图像检测"></a>虚假图像检测</h3><p>使用CNN和GAN来进行面部身份交换能够得到良好的效果，也对伪造检查造成了不小的挑战。<a href="https://ieeexplore.ieee.org/document/8124497" target="_blank" rel="noopener">Zhang等人</a>使用词袋模型来提取一组压缩向量并输入到SVM，RF，MLP等分类器的方法来进行检测。在通过深度学习的图像中，GAN生成的图像最难以检测，因为GAN能够从复杂的输入中学习并得到与输入相似分布的输出。</p>
+<p>许多的检测方法都不具有泛化性，而且随着GAN的发展快速，许多新的GAN出现。<a href="https://arxiv.org/abs/1902.11153" target="_blank" rel="noopener">Xuan等人</a>使用了图像预处理，比如高斯模糊和高斯噪声来去除图像中低阶高频的痕迹。这种方法增大了真实图像与伪造图像之间的像素级相似度，让分类器学习更有意义的内在特征，这样就可以具有更好的泛化性。</p>
+<p>另一方面，<a href="https://arxiv.org/abs/1905.03493" target="_blank" rel="noopener">Agarwal和Varshney</a>将深度伪造检测作为假设检验问题，引入了一个统计框架，利用信息理论进行验证。定义真实图像和生成图像分布之间的最小距离，称为oracle误差。分析结果展示当GAN的生成精度较低，这个误差就越大，检测就越容易。输入高分辨率的图像，就需要生成精度更好的GAN来生成难以检测的虚假图像。</p>
+<p>最近，<a href="https://www.mdpi.com/2076-3417/10/1/370" target="_blank" rel="noopener">Hsu等人</a>使用了两阶段的深度学习方法来进行虚假图像检测。第一阶段使用CFFN来进行特征提取，CFFN包含了许多密集单元，每个密集单元里又包含了很多密集块来提高虚假图像的表示能力。具有区别性的特征能被CFFN提取出来，这些特征被送入到第二阶段。第二阶段是一个与CFFN最后一个卷积层连接的小型CNN来进行。这个方法在虚假人脸数据集和虚假图像数据集上进行了验证。虚拟人脸数据集是使用DCGAN，WGAN，WGAN-GP，least squares GAN，PGGAN在CelebA上生成64x64的虚假图像。虚拟图像数据集是使用BIGGAN，self-attention GAN，spectral normalization GAN在ILSVRC12上生成128x128的虚假图像。实验结果展示了比其他方法更高的性能。</p>
+<h3 id="虚假视频检测"><a href="#虚假视频检测" class="headerlink" title="虚假视频检测"></a>虚假视频检测</h3><h4 id="跨帧的时间特征"><a href="#跨帧的时间特征" class="headerlink" title="跨帧的时间特征"></a>跨帧的时间特征</h4><p>因为在进行深度伪造的过程中时间相干性并没有得到有效增强,<a href="https://arxiv.org/abs/1905.00582" target="_blank" rel="noopener">Sabir等人</a>使用视频的时空特征来进行深度伪造检测。视频操作是逐帧进行的，每一帧出现的失真在连续的视频中就表现为帧之间不一致的时间失真。他们提出的RCN如下图所示。这个模型使用DenseNet和递归单元细胞结合来找到帧之间的时间差异。这种方法在FaceForensics++上取得了良好的结果。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0001/2.png" alt="2"></p>
+<p><a href="https://ieeexplore.ieee.org/document/8639163" target="_blank" rel="noopener">Guera和Delp</a>同样认为伪造视频包含帧内失真和帧间时间不一致。他们提出了使用CNN和LSTM的时间感知流水线来进行检测。流水线如下图所示，使用CNN来提取帧的特征，然后使用LSTM来创建时间序列描述，最后使用FC来进行判断。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0001/3.png" alt="3"></p>
+<p>因为虚假视频里的眨眼频率要比真实视频低一些，<a href="https://arxiv.org/abs/1806.02877" target="_blank" rel="noopener">Li等人</a>提出的方法中先将视频转换为帧，每个帧再用6个标记标注出眼睛的位置，再进行人脸对齐，提取和缩放眼部标记的标记框来创造新的帧序列，再将这个序列放入LRCN来进行动态预测。这个LRCN使用CNN来进行特征提取，LSTM来进行序列学习，FC来进行状态预测。眨眼具有很强的时间依赖性，LSTM能够很好抓住这些时间特征。这种方法在他们从网络收集的数据集上展现了良好的性能。考虑到高频的眨眼也可能是虚假图像，还可以使用动态眨眼模式来提高性能。</p>
+<h4 id="帧内的视觉失真"><a href="#帧内的视觉失真" class="headerlink" title="帧内的视觉失真"></a>帧内的视觉失真</h4><h5 id="深层分类器"><a href="#深层分类器" class="headerlink" title="深层分类器"></a>深层分类器</h5><p>虚假视频一般是有限分辨率输出，需要进行脸部扭曲仿射来匹配原脸。经过变换的脸和脸部周围或出现不一致，这种失真就可以使用CNN来进行检测。<a href="https://arxiv.org/abs/1806.02877" target="_blank" rel="noopener">Li和Lyu等人</a>通过这种失真来进行检测真伪。这种方法在UADFV和DeepfakeTIMIT进行测试。对比双流神经网络，HeadPose，MesoNet等方法，这种方法的优点在于训练检测模型的时候不需要生成虚假视频作为反例，相反，反例是通过提取原始图像的人脸区域，并对其进行多尺度对齐，然后对随机选取缩放后的图像应用高斯模糊，然后将其扭曲回原始图像动态生成的，大大降低了时间和计算资源。</p>
+<p><a href="https://arxiv.org/abs/1810.11215" target="_blank" rel="noopener">Nguyen等人</a>使用胶囊网络来检测伪造视频。胶囊网络一开始用来解决CNN的短板，找到生成真实图像的物理过程。基于动态路由算法的胶囊网络算法最近的发展证明它可以描述物体之间的层次姿势关系。这个胶囊网络作为流水线中的一个组件如下图所示，动态路由算法将三个胶囊的输出路由到输出胶囊来进行判断。这种方法在很多数据集都效果良好，展现了胶囊网络作为检测方法的潜力。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0001/4.png" alt="4"></p>
+<h5 id="浅层分类器"><a href="#浅层分类器" class="headerlink" title="浅层分类器"></a>浅层分类器</h5><p><a href="https://arxiv.org/abs/1811.00661" target="_blank" rel="noopener">Yang等人</a>提出了基于三维头像的方法来进行检测，使用68个标记点来标注脸部区域。被提取到的特征被送入了SVM来进行检测。在UADFV和用于DARPA MediFor GAN Image/Video Challenge的子集进行了测试。<a href="https://ieeexplore.ieee.org/document/8638330" target="_blank" rel="noopener">Matern等人</a>同样检测眼睛，牙齿和面部轮廓的失真来进行判断。这些视觉失真来自缺少全局一致性，不精确的入射光照估计，不精确的底层几何估计。从面部提取到眼睛，牙齿和轮廓的特征后使用逻辑回归和小神经网络来进行分类。当然这种方法需要图像满足睁眼，牙齿可见等条件才能进行。</p>
+<p><a href="https://www.researchgate.net/publication/329814168_Detection_of_Deepfake_Video_Manipulation" target="_blank" rel="noopener">Koopman等人</a>使用光响应不均匀性分析来进行检测。光响应不均匀性是传感器出场时的缺陷造成的噪声模式，不同的数码相机都不同，可以看作数码图像的指纹。虚假视频会改变面部的光响应不均匀性。将视频帧分为多个组，每个组计算平均光响应不均匀性，再计算组之间的归一化交叉相关分数。分析发现真实视频和虚假视频的归一化交叉相关分数具有显著性的差异。</p>
+<h2 id="讨论，结论和未来的研究方向"><a href="#讨论，结论和未来的研究方向" class="headerlink" title="讨论，结论和未来的研究方向"></a>讨论，结论和未来的研究方向</h2><p>深度伪造开始消磨人们对于媒体内容的信任，造成了很多的负面影响。深度伪造的质量正在不断提高，相应深度伪造检测的方法也需要提高。深度伪造检测目前仍然处于早期，许多方法被提出和检测，但是使用的数据集各式各样，很少有统一的数据集。提高检测方法的一个方向就是创造一个不断更新的基准数据集来验证发展中的检测方法。特别对于深度学习，需要一个大的数据集来进行训练。另外，目前很多检测方法都关注深度伪造流水线过程的弱点，但是这种方法不总是有用，在对抗环境中这些信息和知识不总是有用的，并且对方可以隐藏这样的信息，所以未来需要更加健壮、更加泛化的检测方法。</p>
+<p>另一个研究方向是将检测算法集成到分布式的平台来处理虚假视频的传播影响。用有效的检测方法在平台上实现筛选，减轻深度伪造检测。对视频进行水印和使用区块链技术也是一种解决方法。</p>
+<p>在现实生活中，对于数字媒体取证需要被证明是有效并可靠。但是深度学习算法大多数都是黑盒。因此，需要促进计算机视觉中可解释的方法，体现出深度学习在数字媒体取证中的优势。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DeepFake/" rel="tag"># DeepFake</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/01/Computer_Tool/Git%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B0x00-Git%E7%AE%80%E4%BB%8B%E5%92%8C%E9%85%8D%E7%BD%AE/" rel="next" title="Git简易教程0x00-Git简介和配置">
+                <i class="fa fa-chevron-left"></i> Git简易教程0x00-Git简介和配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/10/17/Book/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%950x01-%E6%84%9F%E7%9F%A5%E6%9C%BA/" rel="prev" title="[书籍阅读]统计学习方法0x01-感知机">
+                [书籍阅读]统计学习方法0x01-感知机 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/setting/avatar.png"
+                alt="Winteryan" />
+            
+              <p class="site-author-name" itemprop="name">Winteryan</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog. I am interested in computer science and I would like to share my knowlegde with everyone.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/winterYANGWT" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:q916090796@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.acfun.cn/u/13517934" target="_blank" title="AcFun">
+                      
+                        <i class="fa fa-fw fa-video-camera"></i>AcFun</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#深度伪造"><span class="nav-number">2.1.</span> <span class="nav-text">深度伪造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深度伪造检测"><span class="nav-number">2.2.</span> <span class="nav-text">深度伪造检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚假图像检测"><span class="nav-number">2.2.1.</span> <span class="nav-text">虚假图像检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚假视频检测"><span class="nav-number">2.2.2.</span> <span class="nav-text">虚假视频检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#跨帧的时间特征"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">跨帧的时间特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#帧内的视觉失真"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">帧内的视觉失真</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#深层分类器"><span class="nav-number">2.2.2.2.1.</span> <span class="nav-text">深层分类器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#浅层分类器"><span class="nav-number">2.2.2.2.2.</span> <span class="nav-text">浅层分类器</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讨论，结论和未来的研究方向"><span class="nav-number">2.3.</span> <span class="nav-text">讨论，结论和未来的研究方向</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2020 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Winteryan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.gt-container a{border-bottom:none;}
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

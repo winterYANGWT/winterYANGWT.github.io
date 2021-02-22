@@ -118,7 +118,7 @@
 
 
 
-  <meta name="keywords" content="Machine Learning,naive Bayes," />
+  <meta name="keywords" content="Deep Learning,Document Layout Analysis," />
 
 
 
@@ -129,18 +129,18 @@
 
 
 
-<meta name="description" content="朴素贝叶斯方法和估计">
+<meta name="description" content="本文使用Faster RCNN和Mask RCNN来检测文档中图像元素，并提出了一个新的数据集GO-IIIT-5K">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[书籍阅读]统计学习方法0x03-朴素贝叶斯">
-<meta property="og:url" content="http://yoursite.com/2021/01/18/Book/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%950x03-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/index.html">
+<meta property="og:title" content="[论文阅读]0x0002-Graphical Object Detection in Document Images">
+<meta property="og:url" content="http://yoursite.com/2021/02/18/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0002-Graphical-Object-Detection-in-Document-Images/index.html">
 <meta property="og:site_name" content="The magic of computer science">
-<meta property="og:description" content="朴素贝叶斯方法和估计">
+<meta property="og:description" content="本文使用Faster RCNN和Mask RCNN来检测文档中图像元素，并提出了一个新的数据集GO-IIIT-5K">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-18T03:00:20.000Z">
-<meta property="article:modified_time" content="2021-01-19T07:45:49.000Z">
+<meta property="article:published_time" content="2021-02-18T13:26:31.000Z">
+<meta property="article:modified_time" content="2021-02-22T22:21:55.914Z">
 <meta property="article:author" content="Winteryan">
-<meta property="article:tag" content="Machine Learning">
-<meta property="article:tag" content="naive Bayes">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Document Layout Analysis">
 <meta name="twitter:card" content="summary">
 
 
@@ -171,13 +171,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/01/18/Book/统计学习方法/书籍阅读-统计学习方法0x03-朴素贝叶斯/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/02/18/Paper/论文阅读-0x0002-Graphical-Object-Detection-in-Document-Images/"/>
 
 
 
 
 
-  <title>[书籍阅读]统计学习方法0x03-朴素贝叶斯 | The magic of computer science</title>
+  <title>[论文阅读]0x0002-Graphical Object Detection in Document Images | The magic of computer science</title>
   
 
 
@@ -304,7 +304,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/18/Book/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%950x03-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/18/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0002-Graphical-Object-Detection-in-Document-Images/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Winteryan">
@@ -321,7 +321,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">[书籍阅读]统计学习方法0x03-朴素贝叶斯</h1>
+          <h1 class="post-title" itemprop="name headline">[论文阅读]0x0002-Graphical Object Detection in Document Images</h1>
         
 
         <div class="post-meta">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-18T11:00:20+08:00">
-                2021-01-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-02-18T21:26:31+08:00">
+                2021-02-18
               </time>
             
 
@@ -356,8 +356,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Book/" itemprop="url" rel="index">
-                    <span itemprop="name">Book</span>
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
                   </a>
                 </span>
 
@@ -393,30 +393,296 @@
       
 
       
-        <p>朴素贝叶斯方法和估计</p>
+        <p>本文使用Faster RCNN和Mask RCNN来检测文档中图像元素，并提出了一个新的数据集GO-IIIT-5K</p>
 <a id="more"></a>
 <hr>
-<p>贝叶斯方法是一类基于贝叶斯公式$P(A|B)=\frac{P(B|A)P(A)}{P(B)}$的分类方法。朴素贝叶斯是其中一种简单的分类方法，学习与预测的效率很高，非常常用。</p>
-<h1 id="朴素贝叶斯方法"><a href="#朴素贝叶斯方法" class="headerlink" title="朴素贝叶斯方法"></a>朴素贝叶斯方法</h1><p>输入为$x=(x^{(1)},x^{(2)},\cdots,x^{(n)})^T \in\mathbb{x} \subseteq \mathbb{R}^n$，是$n$维的特征向量。输入是$y \in \mathbb{y}=\{ c_1,c_2,\cdots,c_K \}$。$X$和$Y$是分别定义在空间$\mathbb{x}$和$\mathbb{y}$的随机变量。训练数据集为$T=\{ (x_1,y_1),(x_2,y_2),\cdots,(x_N,y_N) \}$。</p>
-<p>朴素贝叶斯方法通过T学习两个概率。分别是先验概率分布$P(Y=c_k)\quad k=1,2,\cdots,K$和先验条件概率分布$P(X=x|Y=c_k)=P(X^{(1)}=x^{(1)},X^{(2)}=x^{(2)},\cdots,X^{(n)}=x^{(n)}|Y=c_k)$。</p>
-<p>如果直接学习上面先验条件概率分布将会非常困难。这里假设$X^{(j)} \quad j=1,2,\cdots,n$的可能取值个数为$S_j$。那么参数的数量就变为了$K \prod_{j=1}^{n}{S_j}$，在特征维度比较高或者特征可能取值比较多的情况下，参数会变得非常大。朴素贝叶斯其独特之处就是做出一个假设，所有特征之间相互独立。先验条件概率分布变为了$P(X=x|Y=c_k)=\prod_j^n{P(X^{(j)}=x^{(j)}|Y=c_k)}$。基于这个假设，参数数量就变为了$K\sum_j^n{S_j}$，大大减少了参数量，使学习变得简单。这个假设较强，朴素贝叶斯也得名于此，但在特征之间有较强相关度的时候也会牺牲一些准确率。</p>
-<p>在学习到先验概率后，就可以通过贝叶斯公式得到我们需要的后验概率。</p>
-<script type="math/tex; mode=display">P(Y=c_k|X=x)=\frac{P(X=x|Y=c_k)P(Y=c_k)}{\sum_k{P(X=x|Y=c_k)P(Y=c_k)}}=\frac{P(Y=c_k)\prod_j{P(X^{(j)}=x^{(j)}|Y=c_k)}}{\sum_k{P(Y=c_k)\prod_j{P(X^{(j)}=x^{(j)}|Y=c_k)}}}</script><p>朴素贝叶斯分类器就表示如下。</p>
-<script type="math/tex; mode=display">y=f(x)=\arg{\max_{c_k} \frac{P(Y=c_k)\prod_j{P(X^{(j)}=x^{(j)}|Y=c_k)}}{\sum_k{P(Y=c_k)\prod_j{P(X^{(j)}=x^{(j)}|Y=c_k)}}}}</script><p>因为对于每一个$c_k$，分母都是相同的，所以可以继续简写成如下的公式。</p>
-<script type="math/tex; mode=display">y=f(x)=\arg{\max_{c_k} P(Y=c_k)\prod_j{P(X^{(j)}=x^{(j)}|Y=c_k)}}</script><h1 id="朴素贝叶斯估计"><a href="#朴素贝叶斯估计" class="headerlink" title="朴素贝叶斯估计"></a>朴素贝叶斯估计</h1><p>朴素贝叶斯分类需要先学习先验概率分布和先验条件概率分布。可以通过极大似然估计和贝叶斯估计。</p>
-<h2 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h2><p>先验概率的极大似然估计是$P(Y=c_k)=\frac{\sum_{i=1}^N{I(y_i=c_k)}}{N}$。</p>
-<p>设第$j$个特征的可能取值有$\{ a_{j1},a_{j2},\cdots,a_{jS_j} \}$。先验条件概率的极大似然估计是$P(X^{(j)}=a_{jl}|Y=c_k)=\frac{\sum_{i=1}^N{I(x_i^{(j)}=a_{jl},y_i=c_k)}}{\sum_{i=1}^N{I(y_i=c_k)}}$。</p>
-<p>这样，朴素贝叶斯分类器就可以叙述成下面的步骤。</p>
-<ol>
-<li>先根据训练数据集$T$和极大似然估计得到验概率分布$P(Y=c_k)$和先验条件概率分布$P(X^{(j)}=a_{jl}|Y=c_k)$</li>
-<li>对于输入$x=(x^{(1)},x^{(2)},\cdots,x^{(n)})^T$。计算后验概率$P(Y=c_k)\prod_{j=1}^n{P(X^{(j)}=x^{(j)}|Y=c_k)}$</li>
-<li>通过最大后验概率确定类别</li>
-</ol>
-<h2 id="贝叶斯估计"><a href="#贝叶斯估计" class="headerlink" title="贝叶斯估计"></a>贝叶斯估计</h2><p>使用极大似然估计会出现一个问题：当数据集缺少某个特征取值的数据，会导致估计的概率值为0，这样就导致了分类出现偏差。这个问题可以使用拉普拉斯平滑来进行处理。</p>
-<p>在使用拉普拉斯平滑后，后验条件概率分布的贝叶斯估计如下。</p>
-<script type="math/tex; mode=display">P_{\lambda}(X^{(j)}=a_{jl}|Y=c_k)=\frac{\sum_{i=1}^N{I(x_i^{(j)}=a_{jl},y_i=c_k)}+\lambda}{\sum_{i=1}^N{I(y_i=c_k)}+S_j\lambda}</script><p>一般常让$\lambda=1$。可以理解为仅在计算时，插入一组数据，这组数据刚好有这个特征的所有取值。</p>
-<p>同样，后验概率分布的贝叶斯估计如下。</p>
-<script type="math/tex; mode=display">P_{\lambda}(Y=c_k)=\frac{\sum_{i=1}^N{I(y_i=c_k)}+\lambda}{N+K\lambda}</script><p>同样也常让$\lambda=1$。可以理解为仅在计算时，插入一组数据，这组数据刚好有类别的所有取值。</p>
+<h1 id="本文解决的问题"><a href="#本文解决的问题" class="headerlink" title="本文解决的问题"></a>本文解决的问题</h1><p>现如今，电子文档越来越多，所以对于电子文档的理解就越来越重要，本文主要对文档中的表格、图像和公式等图像元素进行检测。这些图像元素检测的难点就在于文档中图像元素的位置、大小和比例都不同。</p>
+<h1 id="提出的模型"><a href="#提出的模型" class="headerlink" title="提出的模型"></a>提出的模型</h1><p>本文提出的模型就是Faster RCNN和Mask RCNN。</p>
+<p>先将图像缩放到600*600的固定大小，经过CNN提取出特征图，再经过RPN得到可能存在目标的区域，最后综合特征图的候选区域给出候选框坐标和目标的分类。</p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>本文使用的评估方法为mAP和F1。测试的数据集为ICDAR-2017、ICDAR-2013、Marmot和UNLV。</p>
+<h2 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h2><h3 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h3><p>测试的对象为Faster RCNN中的CNN部分。下表为在ICDAR-2017上的测试结果。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">模型</th>
+<th style="text-align:center">公式/AP</th>
+<th style="text-align:center">表格/AP</th>
+<th style="text-align:center">图像/AP</th>
+<th style="text-align:center">mAP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">VGG16</td>
+<td style="text-align:center">0.807</td>
+<td style="text-align:center">0.934</td>
+<td style="text-align:center">0.857</td>
+<td style="text-align:center">0.866</td>
+</tr>
+<tr>
+<td style="text-align:center">ResNet50</td>
+<td style="text-align:center">0.807</td>
+<td style="text-align:center">0.950</td>
+<td style="text-align:center">0.819</td>
+<td style="text-align:center">0.862</td>
+</tr>
+<tr>
+<td style="text-align:center">ResNet101</td>
+<td style="text-align:center">0.894</td>
+<td style="text-align:center">0.959</td>
+<td style="text-align:center">0.857</td>
+<td style="text-align:center">0.899</td>
+</tr>
+<tr>
+<td style="text-align:center">ResNet152</td>
+<td style="text-align:center"><strong>0.903</strong></td>
+<td style="text-align:center"><strong>0.962</strong></td>
+<td style="text-align:center"><strong>0.851</strong></td>
+<td style="text-align:center"><strong>0.905</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>从实验结果来看，更深的模型具有更高的精度。</p>
+<h3 id="IoU阈值"><a href="#IoU阈值" class="headerlink" title="IoU阈值"></a>IoU阈值</h3><p>下表为在ICDAR-2017上的测试结果。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">IoU阈值</th>
+<th style="text-align:center">公式/AP</th>
+<th style="text-align:center">表格/AP</th>
+<th style="text-align:center">图像/AP</th>
+<th></th>
+<th style="text-align:center">公式/F1</th>
+<th style="text-align:center">表格/F1</th>
+<th style="text-align:center">图像/F1</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0.5</td>
+<td style="text-align:center"><strong>0.922</strong></td>
+<td style="text-align:center"><strong>0.980</strong></td>
+<td style="text-align:center"><strong>0.881</strong></td>
+<td><strong>0.928</strong></td>
+<td style="text-align:center"><strong>0.922</strong></td>
+<td style="text-align:center"><strong>0.977</strong></td>
+<td style="text-align:center"><strong>0.851</strong></td>
+<td><strong>0.917</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">0.6</td>
+<td style="text-align:center">0.903</td>
+<td style="text-align:center">0.962</td>
+<td style="text-align:center">0.851</td>
+<td>0.905</td>
+<td style="text-align:center">0.889</td>
+<td style="text-align:center">0.959</td>
+<td style="text-align:center">0.878</td>
+<td>0.909</td>
+</tr>
+<tr>
+<td style="text-align:center">0.7</td>
+<td style="text-align:center">0.810</td>
+<td style="text-align:center">0.937</td>
+<td style="text-align:center">0.815</td>
+<td>0.854</td>
+<td style="text-align:center">0.832</td>
+<td style="text-align:center">0.952</td>
+<td style="text-align:center">0.833</td>
+<td>0.872</td>
+</tr>
+<tr>
+<td style="text-align:center">0.8</td>
+<td style="text-align:center">0.742</td>
+<td style="text-align:center">0.916</td>
+<td style="text-align:center">0.786</td>
+<td>0.814</td>
+<td style="text-align:center">0.772</td>
+<td style="text-align:center">0.927</td>
+<td style="text-align:center">0.833</td>
+<td>0.844</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>比较高的IoU阈值会降低模型的精度，因为一些真正例会被抛弃。</p>
+<h2 id="与其他SOTA的对比"><a href="#与其他SOTA的对比" class="headerlink" title="与其他SOTA的对比"></a>与其他SOTA的对比</h2><p>下表为在ICDAR-2017上的测试结果。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">模型（IoU=0.8)</th>
+<th style="text-align:center">公式/AP</th>
+<th style="text-align:center">表格/AP</th>
+<th style="text-align:center">图像/AP</th>
+<th></th>
+<th style="text-align:center">公式/F1</th>
+<th style="text-align:center">表格/F1</th>
+<th style="text-align:center">图像/F1</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">NLPR-PAL</td>
+<td style="text-align:center">0.816</td>
+<td style="text-align:center">0.911</td>
+<td style="text-align:center">0.805</td>
+<td>0.844</td>
+<td style="text-align:center">0.902</td>
+<td style="text-align:center">0.951</td>
+<td style="text-align:center">0.898</td>
+<td>0.917</td>
+</tr>
+<tr>
+<td style="text-align:center">HustVision</td>
+<td style="text-align:center">0.293</td>
+<td style="text-align:center">0.796</td>
+<td style="text-align:center">0.656</td>
+<td>0.582</td>
+<td style="text-align:center">0.042</td>
+<td style="text-align:center">0.115</td>
+<td style="text-align:center">0.132</td>
+<td>0.096</td>
+</tr>
+<tr>
+<td style="text-align:center">FastDetectors</td>
+<td style="text-align:center">0.427</td>
+<td style="text-align:center">0.884</td>
+<td style="text-align:center">0.365</td>
+<td>0.559</td>
+<td style="text-align:center">0.639</td>
+<td style="text-align:center">0.896</td>
+<td style="text-align:center">0.616</td>
+<td>0.717</td>
+</tr>
+<tr>
+<td style="text-align:center">Vislnt</td>
+<td style="text-align:center">0.117</td>
+<td style="text-align:center">0.795</td>
+<td style="text-align:center">0.565</td>
+<td>0.492</td>
+<td style="text-align:center">0.241</td>
+<td style="text-align:center">0.826</td>
+<td style="text-align:center">0.643</td>
+<td>0.570</td>
+</tr>
+<tr>
+<td style="text-align:center">GOD(Faster RCNN)</td>
+<td style="text-align:center">0.742</td>
+<td style="text-align:center">0.916</td>
+<td style="text-align:center">0.786</td>
+<td>0.814</td>
+<td style="text-align:center">0.772</td>
+<td style="text-align:center">0.927</td>
+<td style="text-align:center">0.833</td>
+<td>0.844</td>
+</tr>
+<tr>
+<td style="text-align:center">GOD(Mask RCNN)</td>
+<td style="text-align:center"><strong>0.869</strong></td>
+<td style="text-align:center"><strong>0.974</strong></td>
+<td style="text-align:center"><strong>0.818</strong></td>
+<td><strong>0.887</strong></td>
+<td style="text-align:center"><strong>0.919</strong></td>
+<td style="text-align:center"><strong>0.968</strong></td>
+<td style="text-align:center"><strong>0.912</strong></td>
+<td><strong>0.933</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">模型（IoU=0.6)</th>
+<th style="text-align:center">公式/AP</th>
+<th style="text-align:center">表格/AP</th>
+<th style="text-align:center">图像/AP</th>
+<th></th>
+<th style="text-align:center">公式/F1</th>
+<th style="text-align:center">表格/F1</th>
+<th style="text-align:center">图像/F1</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">NLPR-PAL</td>
+<td style="text-align:center">0.839</td>
+<td style="text-align:center">0.933</td>
+<td style="text-align:center">0.849</td>
+<td>0.874</td>
+<td style="text-align:center">0.915</td>
+<td style="text-align:center">0.960</td>
+<td style="text-align:center">0.927</td>
+<td>0.934</td>
+</tr>
+<tr>
+<td style="text-align:center">HustVision</td>
+<td style="text-align:center">0.854</td>
+<td style="text-align:center">0.938</td>
+<td style="text-align:center">0.853</td>
+<td>0.882</td>
+<td style="text-align:center">0.078</td>
+<td style="text-align:center">0.132</td>
+<td style="text-align:center">0.164</td>
+<td>0.124</td>
+</tr>
+<tr>
+<td style="text-align:center">FastDetectors</td>
+<td style="text-align:center">0.474</td>
+<td style="text-align:center">0.925</td>
+<td style="text-align:center">0.392</td>
+<td>0.597</td>
+<td style="text-align:center">0.675</td>
+<td style="text-align:center">0.921</td>
+<td style="text-align:center">0.638</td>
+<td>0.745</td>
+</tr>
+<tr>
+<td style="text-align:center">Vislnt</td>
+<td style="text-align:center">0.524</td>
+<td style="text-align:center">0.914</td>
+<td style="text-align:center">0.781</td>
+<td>0.740</td>
+<td style="text-align:center">0.605</td>
+<td style="text-align:center">0.921</td>
+<td style="text-align:center">0.824</td>
+<td>0.783</td>
+</tr>
+<tr>
+<td style="text-align:center">GOD(Faster RCNN)</td>
+<td style="text-align:center">0.903</td>
+<td style="text-align:center">0.962</td>
+<td style="text-align:center">0.851</td>
+<td>0.905</td>
+<td style="text-align:center">0.889</td>
+<td style="text-align:center">0.959</td>
+<td style="text-align:center">0.878</td>
+<td>0.909</td>
+</tr>
+<tr>
+<td style="text-align:center">GOD(Mask RCNN)</td>
+<td style="text-align:center"><strong>0.921</strong></td>
+<td style="text-align:center"><strong>0.989</strong></td>
+<td style="text-align:center"><strong>0.860</strong></td>
+<td><strong>0.921</strong></td>
+<td style="text-align:center"><strong>0.924</strong></td>
+<td style="text-align:center"><strong>0.971</strong></td>
+<td style="text-align:center"><strong>0.918</strong></td>
+<td><strong>0.938</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>GOD具有最好的性能，且对于IoU的变化更具有健壮性。</p>
+<h2 id="GO-IIIT-5K"><a href="#GO-IIIT-5K" class="headerlink" title="GO-IIIT-5K"></a>GO-IIIT-5K</h2><p>本文也提出了新的数据集GO-IIIT-5K。GO-IIIT-5K与ICDAR、UNLV不同之处就在于这个数据集中的图像元素结构更复杂。</p>
 
       
     </div>
@@ -434,9 +700,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
           
-            <a href="/tags/naive-Bayes/" rel="tag"># naive Bayes</a>
+            <a href="/tags/Document-Layout-Analysis/" rel="tag"># Document Layout Analysis</a>
           
         </div>
       
@@ -449,8 +715,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/10/17/Book/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%950x01-%E6%84%9F%E7%9F%A5%E6%9C%BA/" rel="next" title="[书籍阅读]统计学习方法0x01-感知机">
-                <i class="fa fa-chevron-left"></i> [书籍阅读]统计学习方法0x01-感知机
+              <a href="/2021/02/15/Book/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%950x02-k%E8%BF%91%E9%82%BB%E6%B3%95/" rel="next" title="[书籍阅读]统计学习方法0x02-k近邻法">
+                <i class="fa fa-chevron-left"></i> [书籍阅读]统计学习方法0x02-k近邻法
               </a>
             
           </div>
@@ -458,10 +724,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/01/29/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0000-An-Attentive-Survey-of-Attention-Models/" rel="prev" title="[论文阅读]0x0000-An Attentive Survey of Attention Models">
-                [论文阅读]0x0000-An Attentive Survey of Attention Models <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -619,7 +881,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯方法"><span class="nav-number">1.</span> <span class="nav-text">朴素贝叶斯方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯估计"><span class="nav-number">2.</span> <span class="nav-text">朴素贝叶斯估计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#极大似然估计"><span class="nav-number">2.1.</span> <span class="nav-text">极大似然估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贝叶斯估计"><span class="nav-number">2.2.</span> <span class="nav-text">贝叶斯估计</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文解决的问题"><span class="nav-number">1.</span> <span class="nav-text">本文解决的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提出的模型"><span class="nav-number">2.</span> <span class="nav-text">提出的模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验"><span class="nav-number">3.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#消融实验"><span class="nav-number">3.1.</span> <span class="nav-text">消融实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CNN"><span class="nav-number">3.1.1.</span> <span class="nav-text">CNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IoU阈值"><span class="nav-number">3.1.2.</span> <span class="nav-text">IoU阈值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与其他SOTA的对比"><span class="nav-number">3.2.</span> <span class="nav-text">与其他SOTA的对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GO-IIIT-5K"><span class="nav-number">3.3.</span> <span class="nav-text">GO-IIIT-5K</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -129,15 +129,15 @@
 
 
 
-<meta name="description" content="本文使用Faster RCNN和Mask RCNN来检测文档中图像元素，并提出了一个新的数据集GO-IIIT-5K">
+<meta name="description" content="本文主要对文档中的表格、图像和公式等图像元素进行检测。这些图像元素检测的难点就在于文档中图像元素的位置、大小和比例都不同。本文使用Faster RCNN和Mask RCNN来检测文档中图像元素，并提出了一个新的数据集GO-IIIT-5K">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[论文阅读]0x0002-Graphical Object Detection in Document Images">
 <meta property="og:url" content="http://yoursite.com/2021/02/18/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0002-Graphical-Object-Detection-in-Document-Images/index.html">
 <meta property="og:site_name" content="The magic of computer science">
-<meta property="og:description" content="本文使用Faster RCNN和Mask RCNN来检测文档中图像元素，并提出了一个新的数据集GO-IIIT-5K">
+<meta property="og:description" content="本文主要对文档中的表格、图像和公式等图像元素进行检测。这些图像元素检测的难点就在于文档中图像元素的位置、大小和比例都不同。本文使用Faster RCNN和Mask RCNN来检测文档中图像元素，并提出了一个新的数据集GO-IIIT-5K">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-02-18T13:26:31.000Z">
-<meta property="article:modified_time" content="2021-02-22T22:21:55.914Z">
+<meta property="article:modified_time" content="2021-02-24T15:47:44.477Z">
 <meta property="article:author" content="Winteryan">
 <meta property="article:tag" content="Deep Learning">
 <meta property="article:tag" content="Document Layout Analysis">
@@ -393,11 +393,10 @@
       
 
       
-        <p>本文使用Faster RCNN和Mask RCNN来检测文档中图像元素，并提出了一个新的数据集GO-IIIT-5K</p>
+        <p>本文主要对文档中的表格、图像和公式等图像元素进行检测。这些图像元素检测的难点就在于文档中图像元素的位置、大小和比例都不同。本文使用Faster RCNN和Mask RCNN来检测文档中图像元素，并提出了一个新的数据集GO-IIIT-5K</p>
 <a id="more"></a>
 <hr>
-<h1 id="本文解决的问题"><a href="#本文解决的问题" class="headerlink" title="本文解决的问题"></a>本文解决的问题</h1><p>现如今，电子文档越来越多，所以对于电子文档的理解就越来越重要，本文主要对文档中的表格、图像和公式等图像元素进行检测。这些图像元素检测的难点就在于文档中图像元素的位置、大小和比例都不同。</p>
-<h1 id="提出的模型"><a href="#提出的模型" class="headerlink" title="提出的模型"></a>提出的模型</h1><p>本文提出的模型就是Faster RCNN和Mask RCNN。</p>
+<h1 id="提出的方法"><a href="#提出的方法" class="headerlink" title="提出的方法"></a>提出的方法</h1><p>本文提出的模型就是Faster RCNN和Mask RCNN。</p>
 <p>先将图像缩放到600*600的固定大小，经过CNN提取出特征图，再经过RPN得到可能存在目标的区域，最后综合特征图的候选区域给出候选框坐标和目标的分类。</p>
 <h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>本文使用的评估方法为mAP和F1。测试的数据集为ICDAR-2017、ICDAR-2013、Marmot和UNLV。</p>
 <h2 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h2><h3 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h3><p>测试的对象为Faster RCNN中的CNN部分。下表为在ICDAR-2017上的测试结果。</p>
@@ -725,6 +724,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/02/23/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0003-DoT-Net-Document-Layout-Classification-Using-Texture-based-CNN/" rel="prev" title="[论文阅读]0x0003-DoT-Net: Document Layout Classification Using Texture-based CNN">
+                [论文阅读]0x0003-DoT-Net: Document Layout Classification Using Texture-based CNN <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -804,7 +807,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -881,7 +884,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文解决的问题"><span class="nav-number">1.</span> <span class="nav-text">本文解决的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提出的模型"><span class="nav-number">2.</span> <span class="nav-text">提出的模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验"><span class="nav-number">3.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#消融实验"><span class="nav-number">3.1.</span> <span class="nav-text">消融实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CNN"><span class="nav-number">3.1.1.</span> <span class="nav-text">CNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IoU阈值"><span class="nav-number">3.1.2.</span> <span class="nav-text">IoU阈值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与其他SOTA的对比"><span class="nav-number">3.2.</span> <span class="nav-text">与其他SOTA的对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GO-IIIT-5K"><span class="nav-number">3.3.</span> <span class="nav-text">GO-IIIT-5K</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#提出的方法"><span class="nav-number">1.</span> <span class="nav-text">提出的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验"><span class="nav-number">2.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#消融实验"><span class="nav-number">2.1.</span> <span class="nav-text">消融实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CNN"><span class="nav-number">2.1.1.</span> <span class="nav-text">CNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IoU阈值"><span class="nav-number">2.1.2.</span> <span class="nav-text">IoU阈值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与其他SOTA的对比"><span class="nav-number">2.2.</span> <span class="nav-text">与其他SOTA的对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GO-IIIT-5K"><span class="nav-number">2.3.</span> <span class="nav-text">GO-IIIT-5K</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -118,7 +118,7 @@
 
 
 
-  <meta name="keywords" content="Deep Learning,Document Layout Analysis," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -129,23 +129,22 @@
 
 
 
-<meta name="description" content="本文提出了DoT Net来对文档中得到的文档块进行分类，可以分类文本、图像、表格、公式和线型图">
+<meta name="description" content="本文对文档图像进行实例分割得到文本行、图像和表格等图像元素。之前的方法需要通过只找到区域的中心位置和一些后处理方法来避免图像元素之间间距过小导致的错误融合问题。本文通过LPN和DWT就能处理小间距甚至是重叠的区域分割，但依然会出现过度分割的问题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[论文阅读]0x0003-DoT-Net: Document Layout Classification Using Texture-based CNN">
-<meta property="og:url" content="http://yoursite.com/2021/02/23/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0003-DoT-Net-Document-Layout-Classification-Using-Texture-based-CNN/index.html">
+<meta property="og:title" content="[论文阅读]0x0004-Instance Aware Document Image Segmentation using Label Pyramid Networks and Deep Watershed Transformation">
+<meta property="og:url" content="http://yoursite.com/2021/02/27/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0004-Instance-Aware-Document-Image-Segmentation-using-Label-Pyramid-Networks-and-Deep-Watershed-Transformation/index.html">
 <meta property="og:site_name" content="The magic of computer science">
-<meta property="og:description" content="本文提出了DoT Net来对文档中得到的文档块进行分类，可以分类文本、图像、表格、公式和线型图">
+<meta property="og:description" content="本文对文档图像进行实例分割得到文本行、图像和表格等图像元素。之前的方法需要通过只找到区域的中心位置和一些后处理方法来避免图像元素之间间距过小导致的错误融合问题。本文通过LPN和DWT就能处理小间距甚至是重叠的区域分割，但依然会出现过度分割的问题">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0003/0.png">
-<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0003/1.png">
-<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0003/2.png">
-<meta property="article:published_time" content="2021-02-23T15:09:09.000Z">
-<meta property="article:modified_time" content="2021-02-24T16:18:16.000Z">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0004/0.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0004/1.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0004/2.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0004/3.png">
+<meta property="article:published_time" content="2021-02-27T08:37:39.000Z">
+<meta property="article:modified_time" content="2021-03-03T12:40:41.115Z">
 <meta property="article:author" content="Winteryan">
-<meta property="article:tag" content="Deep Learning">
-<meta property="article:tag" content="Document Layout Analysis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0003/0.png">
+<meta name="twitter:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0004/0.png">
 
 
 
@@ -175,13 +174,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/02/23/Paper/论文阅读-0x0003-DoT-Net-Document-Layout-Classification-Using-Texture-based-CNN/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/02/27/Paper/论文阅读-0x0004-Instance-Aware-Document-Image-Segmentation-using-Label-Pyramid-Networks-and-Deep-Watershed-Transformation/"/>
 
 
 
 
 
-  <title>[论文阅读]0x0003-DoT-Net: Document Layout Classification Using Texture-based CNN | The magic of computer science</title>
+  <title>[论文阅读]0x0004-Instance Aware Document Image Segmentation using Label Pyramid Networks and Deep Watershed Transformation | The magic of computer science</title>
   
 
 
@@ -308,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/23/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0003-DoT-Net-Document-Layout-Classification-Using-Texture-based-CNN/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/27/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0004-Instance-Aware-Document-Image-Segmentation-using-Label-Pyramid-Networks-and-Deep-Watershed-Transformation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Winteryan">
@@ -325,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">[论文阅读]0x0003-DoT-Net: Document Layout Classification Using Texture-based CNN</h1>
+          <h1 class="post-title" itemprop="name headline">[论文阅读]0x0004-Instance Aware Document Image Segmentation using Label Pyramid Networks and Deep Watershed Transformation</h1>
         
 
         <div class="post-meta">
@@ -337,8 +336,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-02-23T23:09:09+08:00">
-                2021-02-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-02-27T16:37:39+08:00">
+                2021-02-27
               </time>
             
 
@@ -397,206 +396,133 @@
       
 
       
-        <p>本文提出了DoT Net来对文档中得到的文档块进行分类，可以分类文本、图像、表格、公式和线型图</p>
+        <p>本文对文档图像进行实例分割得到文本行、图像和表格等图像元素。之前的方法需要通过只找到区域的中心位置和一些后处理方法来避免图像元素之间间距过小导致的错误融合问题。本文通过LPN和DWT就能处理小间距甚至是重叠的区域分割，但依然会出现过度分割的问题</p>
 <a id="more"></a>
 <hr>
-<h1 id="提出的方法"><a href="#提出的方法" class="headerlink" title="提出的方法"></a>提出的方法</h1><p>本文对于文档块的分类过程如下图所示。</p>
-<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0003/0.png" alt="0"></p>
-<p>给出已经经过OCR的文档，文档块已经被定位出来。将每一块通过滑动窗口得到一个子块，将这个子块输入到DoT Net得到这个子块的类别，最终通过多数投票的方法来确定这个文档块的类别。下图为DoT Net的总体结构图。</p>
-<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0003/1.png" alt="1"></p>
-<p>DoT Net由3个空洞卷积层、3个最大池化层、1个平整层、1个全连接层和输出层构成。DoT Net用空洞卷积层替代了卷积层，空洞卷积层在不损失空间信息和增加参数的前提下提高了感受野。</p>
-<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>测试数据集为ICDAR 2009 Page Segemtation，使用的评估方法为精确率、F1和AUC，一起测试的模型有FFN、F1DCNN、HOGMLP、CNN和DoT Net。测试方法分为二分类测试和多分类测试。</p>
-<h2 id="二分类测试"><a href="#二分类测试" class="headerlink" title="二分类测试"></a>二分类测试</h2><p>在二分类测试时，取一个类别为正类，其他类别为负类。下图为各个模型的ROC曲线。</p>
-<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0003/2.png" alt="2"></p>
+<h1 id="提出的方法"><a href="#提出的方法" class="headerlink" title="提出的方法"></a>提出的方法</h1><p>方法的总体流程如下图所示。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0004/0.png" alt="0"></p>
+<p>先对模型的标签进行距离转换，将前景的每个像素的值变为到边界的距离，再进行截断使最大值为64，再将图像上的值正则化到0到255的范围。设置N个不同的大小阈值对标签再次进行二值化，这样就可以得到上图中右边的金字塔标签（可以看出随着阈值的变大，标签中的边界也逐渐缩小）。</p>
+<p>将输入的图像送到FCN中得到边界的的预测。这里的FCN采用U-Net，结构如下图所示。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0004/1.png" alt="1"></p>
+<p>其中，ConvBlock3、ConvBlock4、ConvBlock5和ConvBlock6都使用了空洞卷积来提高感受野的大小。最终，FCN会输出N个与标签一一对应的预测，每个像素的值代表了是正样本的概率。</p>
+<p>将N个预测进行加平均得到单个概率，这个概率的特点为区域中心到边界的值从大到小，再将概率量化为N+1级。对概率使用分水岭转换得到区域的分界线，最后使用PCA得到最终的分割结果。</p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>数据集有CASIA-HWDB、Bozen、cBAD-TrackB和Maurdor。</p>
+<h2 id="评估方法"><a href="#评估方法" class="headerlink" title="评估方法"></a>评估方法</h2><p>评估方法有Precision、Recall和F1。</p>
+<h2 id="实验细节"><a href="#实验细节" class="headerlink" title="实验细节"></a>实验细节</h2><p>使用在ImageNet上预训练的VGG16来初始化网络参数。文档图像被切分到大小为256*256，32张图像为一组进行随机梯度下降。初始学习率为$1 \times 10^{-6}$。每50000次迭代下降一个数量级。</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>相比于基准FCN，本文使用的LPN能够更好处理小间距的分割。下面是在CASIA-HWDB上的示例。其中左边是基准FCN，右边是LPN，上面是原始间距图像，下面是小间距图像。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0004/2.png" alt="2"></p>
+<p>下面是在IoU为0.75上的测试结果。其中，左边为基准FCN，右边为LPN。</p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th style="text-align:center">类别</th>
-<th style="text-align:center">模型</th>
-<th style="text-align:center">精确率(平均值/标准差)</th>
-<th style="text-align:center">F1(平均值/标准差)</th>
-<th style="text-align:center">AUC(平均值/标准差)</th>
+<th style="text-align:center">减少的间距大小</th>
+<th style="text-align:center">Precision</th>
+<th style="text-align:center">Recall</th>
+<th style="text-align:center">F1</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">文本</td>
-<td style="text-align:center">F1DCNN</td>
-<td style="text-align:center">0.925/0.047</td>
-<td style="text-align:center">0.884/0.052</td>
-<td style="text-align:center">0.981/0.014</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0.9036/0.9879</td>
+<td style="text-align:center">0.7958/0.9957</td>
+<td style="text-align:center">0.8463/0.9918</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">FFN</td>
-<td style="text-align:center">0.774/0.010</td>
-<td style="text-align:center">0.801/0.016</td>
-<td style="text-align:center">0.815/0.012</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">0.8230/0.9846</td>
+<td style="text-align:center">0.6198/0.9940</td>
+<td style="text-align:center">0.7071/0.9893</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">CNN</td>
-<td style="text-align:center">0.945/0.016</td>
-<td style="text-align:center">0.948/0.014</td>
-<td style="text-align:center"><strong>0.998/0.013</strong></td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">0.7070/0.9787</td>
+<td style="text-align:center">0.4129/0.9904</td>
+<td style="text-align:center">0.5213/0.9845</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">DoT Net</td>
-<td style="text-align:center"><strong>0.981/0.021</strong></td>
-<td style="text-align:center"><strong>0.982/0.013</strong></td>
-<td style="text-align:center">0.998/0.015</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">0.5723/0.9695</td>
+<td style="text-align:center">0.2385/0.9827</td>
+<td style="text-align:center">0.3367/0.9760</td>
 </tr>
 <tr>
-<td style="text-align:center">图像</td>
-<td style="text-align:center">F1DCNN</td>
-<td style="text-align:center">0.905/0.036</td>
-<td style="text-align:center">0.908/0.041</td>
-<td style="text-align:center">0.968/0.030</td>
+<td style="text-align:center">40</td>
+<td style="text-align:center">0.4292/0.9264</td>
+<td style="text-align:center">0.1215/0.9436</td>
+<td style="text-align:center">0.1894/0.9350</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">FFN</td>
-<td style="text-align:center">0.841/0.017</td>
-<td style="text-align:center">0.850/0.027</td>
-<td style="text-align:center">0.903/0.012</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">CNN</td>
-<td style="text-align:center">0.937/0.009</td>
-<td style="text-align:center">0.919/0.011</td>
-<td style="text-align:center"><strong>0.994/0.012</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">DoT Net</td>
-<td style="text-align:center"><strong>0.970/0.019</strong></td>
-<td style="text-align:center"><strong>0.971/0.017</strong></td>
-<td style="text-align:center">0.992/0.018</td>
-</tr>
-<tr>
-<td style="text-align:center">表格</td>
-<td style="text-align:center">F1DCNN</td>
-<td style="text-align:center">0.773/0.046</td>
-<td style="text-align:center">0.700/0.051</td>
-<td style="text-align:center">0.832/0.066</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">FFN</td>
-<td style="text-align:center">0.596/0.022</td>
-<td style="text-align:center">0.644/0.013</td>
-<td style="text-align:center">0.663/0.018</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">CNN</td>
-<td style="text-align:center">0.879/0.028</td>
-<td style="text-align:center">0.893/0.020</td>
-<td style="text-align:center">0.965/0.038</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">DoT Net</td>
-<td style="text-align:center"><strong>0.917/0.022</strong></td>
-<td style="text-align:center"><strong>0.919/0.018</strong></td>
-<td style="text-align:center"><strong>0.978/0.025</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">公式</td>
-<td style="text-align:center">F1DCNN</td>
-<td style="text-align:center">0.825/0.053</td>
-<td style="text-align:center">0.870/0.037</td>
-<td style="text-align:center">0.817/0.041</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">FFN</td>
-<td style="text-align:center">0.705/0.031</td>
-<td style="text-align:center">0.748/0.027</td>
-<td style="text-align:center">0.724/0.028</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">CNN</td>
-<td style="text-align:center">0.806/0.015</td>
-<td style="text-align:center">0.845/0.013</td>
-<td style="text-align:center">0.849/0.017</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">DoTNet</td>
-<td style="text-align:center"><strong>0.900/0.037</strong></td>
-<td style="text-align:center"><strong>0.898/0.026</strong></td>
-<td style="text-align:center"><strong>0.963/0.017</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">线型图</td>
-<td style="text-align:center">F1DCNN</td>
-<td style="text-align:center">0.769/0.027</td>
-<td style="text-align:center">0.803/0.052</td>
-<td style="text-align:center">0.810/0.033</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">FFN</td>
-<td style="text-align:center">0.737/0.010</td>
-<td style="text-align:center">0.753/0.028</td>
-<td style="text-align:center">0.7866/0.012</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">CNN</td>
-<td style="text-align:center">0.769/0.027</td>
-<td style="text-align:center">0.718/0.042</td>
-<td style="text-align:center">0.840/0.048</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">DoT Net</td>
-<td style="text-align:center"><strong>0.903/0.024</strong></td>
-<td style="text-align:center"><strong>0.901/0.027</strong></td>
-<td style="text-align:center"><strong>0.969/0.010</strong></td>
+<td style="text-align:center">50</td>
+<td style="text-align:center">0.2644/0.8398</td>
+<td style="text-align:center">0.0505/0.8515</td>
+<td style="text-align:center">0.0848/0.8456</td>
 </tr>
 </tbody>
 </table>
 </div>
-<h2 id="多分类测试"><a href="#多分类测试" class="headerlink" title="多分类测试"></a>多分类测试</h2><div class="table-container">
+<p>下图为基准FCN和LPN在不同IoU下的测试结果。图中左边是在CASIA-HWDB上的结果，右边是在Bozen上的结果。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0004/3.png" alt="3"></p>
+<p>下表是在Bozen和cBAD-TrackB上与其他模型的比较。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
 <th style="text-align:center">模型</th>
-<th style="text-align:center">精确率(平均值/标准差)</th>
-<th style="text-align:center">F1(平均值/标准差)</th>
-<th style="text-align:center">AUC(平均值/标准差)</th>
+<th style="text-align:center">Bozen.Precision</th>
+<th style="text-align:center">Bozen.Recall</th>
+<th style="text-align:center">Bozen.F1</th>
+<th style="text-align:center">cBAD-TrackB.Precision</th>
+<th style="text-align:center">CBAD-TrackB.Recall</th>
+<th style="text-align:center">CBAD-TrackB.F1</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">F1DCNN</td>
-<td style="text-align:center">0.881/0.022</td>
-<td style="text-align:center">0.868/0.028</td>
-<td style="text-align:center">0.943/0.024</td>
+<td style="text-align:center"><a href="https://ieeexplore.ieee.org/document/8270153" target="_blank" rel="noopener">DMRZ</a></td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">0.8540</td>
+<td style="text-align:center">0.8540</td>
+<td style="text-align:center">0.8590</td>
 </tr>
 <tr>
-<td style="text-align:center">FFN</td>
-<td style="text-align:center">0.790/0.046</td>
-<td style="text-align:center">0.685/0.017</td>
-<td style="text-align:center">0.778/0.043</td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1806.08852" target="_blank" rel="noopener">Multi-Task</a></td>
+<td style="text-align:center">0.9580</td>
+<td style="text-align:center">0.9910</td>
+<td style="text-align:center">0.9740</td>
+<td style="text-align:center">0.8480</td>
+<td style="text-align:center">0.8540</td>
+<td style="text-align:center">0.8510</td>
 </tr>
 <tr>
-<td style="text-align:center">CNN</td>
-<td style="text-align:center">0.848/0.027</td>
-<td style="text-align:center">0.732/0.043</td>
-<td style="text-align:center">0.882/0.016</td>
+<td style="text-align:center"><a href="https://ieeexplore.ieee.org/document/8563218" target="_blank" rel="noopener">dhSegment</a></td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">0.8260</td>
+<td style="text-align:center">0.9240</td>
+<td style="text-align:center">0.8720</td>
 </tr>
 <tr>
-<td style="text-align:center">DoT Net</td>
-<td style="text-align:center"><strong>0.940/0.019</strong></td>
-<td style="text-align:center"><strong>0.876/0.009</strong></td>
-<td style="text-align:center"><strong>0.976/0.012</strong></td>
+<td style="text-align:center"><a href="https://arxiv.org/abs/1802.03345" target="_blank" rel="noopener">ARU-Net</a></td>
+<td style="text-align:center">0.9765</td>
+<td style="text-align:center">0.9734</td>
+<td style="text-align:center">0.9750</td>
+<td style="text-align:center"><strong>0.9260</strong></td>
+<td style="text-align:center">0.9180</td>
+<td style="text-align:center"><strong>0.9220</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">LPN</td>
+<td style="text-align:center"><strong>0.9948</strong></td>
+<td style="text-align:center"><strong>0.9986</strong></td>
+<td style="text-align:center"><strong>0.9967</strong></td>
+<td style="text-align:center">0.8864</td>
+<td style="text-align:center"><strong>0.9509</strong></td>
+<td style="text-align:center">0.9176</td>
 </tr>
 </tbody>
 </table>
@@ -616,14 +542,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
-          
-            <a href="/tags/Document-Layout-Analysis/" rel="tag"># Document Layout Analysis</a>
-          
-        </div>
-      
 
       
       
@@ -633,8 +551,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/18/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0002-Graphical-Object-Detection-in-Document-Images/" rel="next" title="[论文阅读]0x0002-Graphical Object Detection in Document Images">
-                <i class="fa fa-chevron-left"></i> [论文阅读]0x0002-Graphical Object Detection in Document Images
+              <a href="/2021/02/23/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0003-DoT-Net-Document-Layout-Classification-Using-Texture-based-CNN/" rel="next" title="[论文阅读]0x0003-DoT-Net: Document Layout Classification Using Texture-based CNN">
+                <i class="fa fa-chevron-left"></i> [论文阅读]0x0003-DoT-Net: Document Layout Classification Using Texture-based CNN
               </a>
             
           </div>
@@ -642,10 +560,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/02/27/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0004-Instance-Aware-Document-Image-Segmentation-using-Label-Pyramid-Networks-and-Deep-Watershed-Transformation/" rel="prev" title="[论文阅读]0x0004-Instance Aware Document Image Segmentation using Label Pyramid Networks and Deep Watershed Transformation">
-                [论文阅读]0x0004-Instance Aware Document Image Segmentation using Label Pyramid Networks and Deep Watershed Transformation <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -803,7 +717,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#提出的方法"><span class="nav-number">1.</span> <span class="nav-text">提出的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验"><span class="nav-number">2.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二分类测试"><span class="nav-number">2.1.</span> <span class="nav-text">二分类测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多分类测试"><span class="nav-number">2.2.</span> <span class="nav-text">多分类测试</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#提出的方法"><span class="nav-number">1.</span> <span class="nav-text">提出的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验"><span class="nav-number">2.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集"><span class="nav-number">2.1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评估方法"><span class="nav-number">2.2.</span> <span class="nav-text">评估方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验细节"><span class="nav-number">2.3.</span> <span class="nav-text">实验细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">2.4.</span> <span class="nav-text">结果</span></a></li></ol></li></ol></div>
             
 
           </div>

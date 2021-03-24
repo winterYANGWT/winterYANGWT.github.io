@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas,"Microsoft Yahei Mono":300,300italic,400,400italic,700,700italic|Consolas,"Microsoft Yahei Mono":300,300italic,400,400italic,700,700italic|Consolas,"Microsoft Yahei Mono":300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Document Layout Analysis,Multimodal," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="之前的文档语义结构提取分为两个步骤，第一个步骤使用视觉信息进行页面分割，第二个步骤使用文本信息进行逻辑结构分析。这种方法存在一些问题。只依靠视觉信息，字体较大的文本可能被是标题，带有破折号的文本可能会被认为是列表。只依靠文本信息，同样的文本内容可以出现在各个地方，比如人名可以出现在标题、作者和图片等地方。本文提出了端到端的MFCN来提取语义结构，这个过程体现为像素级的分割任务。MFCN同时利用视觉">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[论文阅读]0x0005-Learning to Extract Semantic Structure from Documents Using Multimodal Fully Convolutional Neural Networks">
+<meta property="og:url" content="http://yoursite.com/2021/03/04/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0005-Learning-to-Extract-Semantic-Structure-from-DocumentsUsing-Multimodal-Fully-Convolutional-Neural-Networks/index.html">
+<meta property="og:site_name" content="The magic of computer science">
+<meta property="og:description" content="之前的文档语义结构提取分为两个步骤，第一个步骤使用视觉信息进行页面分割，第二个步骤使用文本信息进行逻辑结构分析。这种方法存在一些问题。只依靠视觉信息，字体较大的文本可能被是标题，带有破折号的文本可能会被认为是列表。只依靠文本信息，同样的文本内容可以出现在各个地方，比如人名可以出现在标题、作者和图片等地方。本文提出了端到端的MFCN来提取语义结构，这个过程体现为像素级的分割任务。MFCN同时利用视觉">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0005/0.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0005/1.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0005/2.png">
+<meta property="og:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0005/3.png">
+<meta property="article:published_time" content="2021-03-03T17:02:07.000Z">
+<meta property="article:modified_time" content="2021-03-24T00:48:42.245Z">
+<meta property="article:author" content="Winteryan">
+<meta property="article:tag" content="Document Layout Analysis">
+<meta property="article:tag" content="Multimodal">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0005/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/04/Paper/论文阅读-0x0005-Learning-to-Extract-Semantic-Structure-from-DocumentsUsing-Multimodal-Fully-Convolutional-Neural-Networks/"/>
+
+
+
+
+
+  <title>[论文阅读]0x0005-Learning to Extract Semantic Structure from Documents Using Multimodal Fully Convolutional Neural Networks | The magic of computer science</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">The magic of computer science</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Winteryan's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/04/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0005-Learning-to-Extract-Semantic-Structure-from-DocumentsUsing-Multimodal-Fully-Convolutional-Neural-Networks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Winteryan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/setting/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The magic of computer science">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[论文阅读]0x0005-Learning to Extract Semantic Structure from Documents Using Multimodal Fully Convolutional Neural Networks</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-03-04T01:02:07+08:00">
+                2021-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前的文档语义结构提取分为两个步骤，第一个步骤使用视觉信息进行页面分割，第二个步骤使用文本信息进行逻辑结构分析。这种方法存在一些问题。只依靠视觉信息，字体较大的文本可能被是标题，带有破折号的文本可能会被认为是列表。只依靠文本信息，同样的文本内容可以出现在各个地方，比如人名可以出现在标题、作者和图片等地方。本文提出了端到端的MFCN来提取语义结构，这个过程体现为像素级的分割任务。MFCN同时利用视觉信息和文本信息来对每个像素进行分类。同时，还提出了一个文档生成器为模型提供预训练数据，最后使用一些半监督的方法来进行优化调参</p>
+<a id="more"></a>
+<hr>
+<h1 id="提出的方法"><a href="#提出的方法" class="headerlink" title="提出的方法"></a>提出的方法</h1><p>方法的总体结构如下所示。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0005/0.png" alt="0"></p>
+<p>MFCN由文本嵌入、Encoder、上方分支的主Decoder和下方分支的辅助Decoder组成。</p>
+<h2 id="Encoder和Decoder"><a href="#Encoder和Decoder" class="headerlink" title="Encoder和Decoder"></a>Encoder和Decoder</h2><p>文档中一些比较小的目标需要低阶特征，一些较大的目标则需要高阶特征。因为经过池化和卷积操作后，低阶特征的信息会损失，所以Encoder和主Decoder的结构为UNet来综合利用低阶特征和高阶特征。从实验结果来看，UNet的跳步连接相比直接的前馈网络对于小节标题等小目标有明显的效果提升。Encoder由4个扩张块组成，其中每一个扩张块如下图所示，包含了5个扩张因子分别为1、2、4、8和16的空洞卷积来获得不同大小的感受野。实验结果显示单独使用某一扩张因子的空洞卷积只能获得单一的感受野，无法同时顾及大目标和小目标，而扩张块则能得到多尺度的感受野。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0005/1.png" alt="1"></p>
+<p>两个Decoder都使用上池化作为上采样方法。上采样方法的过程如下图所示，在进行下采样池化的时候保留池化位置，在上采样时，还原池化位置的值，其他位置的值为0。从实验结果来看，保留池化位置能够更好还原位置信息，消除信息歧义。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0005/2.png" alt="2"></p>
+<p>下面是对模型的消融实验，评估方法为IoU。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">扩张因子</th>
+<th style="text-align:center">上采样</th>
+<th style="text-align:center">跳步连接</th>
+<th style="text-align:center">背景</th>
+<th>图像</th>
+<th style="text-align:center">表格</th>
+<th style="text-align:center">小节标题</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">列表</th>
+<th style="text-align:center">段落</th>
+<th style="text-align:center">平均</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">双线性</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">80.3</td>
+<td>75.4</td>
+<td style="text-align:center">62.7</td>
+<td style="text-align:center">50.0</td>
+<td style="text-align:center">33.8</td>
+<td style="text-align:center">57.3</td>
+<td style="text-align:center">70.4</td>
+<td style="text-align:center">61.4</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">双线性</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">82.1</td>
+<td>76.7</td>
+<td style="text-align:center">74.4</td>
+<td style="text-align:center">51.8</td>
+<td style="text-align:center">42.4</td>
+<td style="text-align:center">58.7</td>
+<td style="text-align:center">74.4</td>
+<td style="text-align:center">65.4</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">上池化</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">84.1</td>
+<td>81.2</td>
+<td style="text-align:center">77.6</td>
+<td style="text-align:center">54.6</td>
+<td style="text-align:center">60.3</td>
+<td style="text-align:center">65.9</td>
+<td style="text-align:center">74.8</td>
+<td style="text-align:center">71.2</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">上池化</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">83.9</td>
+<td>74.9</td>
+<td style="text-align:center">69.7</td>
+<td style="text-align:center">57.2</td>
+<td style="text-align:center">60.2</td>
+<td style="text-align:center">64.6</td>
+<td style="text-align:center">76.1</td>
+<td style="text-align:center">69.5</td>
+</tr>
+<tr>
+<td style="text-align:center">扩张块</td>
+<td style="text-align:center">上池化</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center"><strong>84.6</strong></td>
+<td><strong>83.3</strong></td>
+<td style="text-align:center"><strong>79.4</strong></td>
+<td style="text-align:center"><strong>58.3</strong></td>
+<td style="text-align:center"><strong>61.0</strong></td>
+<td style="text-align:center"><strong>66.7</strong></td>
+<td style="text-align:center"><strong>77.1</strong></td>
+<td style="text-align:center"><strong>73.0</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="文本嵌入"><a href="#文本嵌入" class="headerlink" title="文本嵌入"></a>文本嵌入</h2><p>文本嵌入将句子看作一个最小的单位，用一个长度为$N$的向量来表示语义，每一个句子的向量为组成它的单词的词向量的均值。对于图像中的每一个像素，如果这个像素在某个句子的区域内，这个像素的向量就是这个句子的向量，否则就使是零向量。如果图像的大小为$H \times W$，就得到大小为$N \times H \times W$的文本嵌入，再与主Decoder得到的特征图进行拼接。词嵌入方法使用skip-gram，这种方法通过当前输入的词汇来预测周围的词汇，下图为通过当前词汇预测周围距离为2的skip-gram。类似于掩码语言模型，我们认为能够通过当前的向量预测出周围词汇的向量意味这个向量能够正确表示词汇的语义，所以优化目标就是最大化预测出正确词汇的概率$\frac{1}{T}\sum_{t=1}^{T}{\sum_{-C \leq t \leq C, j \neq 0}{\log{P(w_{t+j} | w_t)}}}$。</p>
+<p><img src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/Paper/0x0005/3.png" alt="3"></p>
+<p>下面是关于文本嵌入的实验，对于较复杂的数据集，OCR有时是不可靠的，反而会对网络产生误导。而在较简单的合成数据集上，OCR往往能够给出正确的识别，而直接使用真实的文本可以明显提高网络的效果。可以看出，文本嵌入是有效的，但是得获得正确的识别结果，目前的瓶颈在于OCR。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th style="text-align:center">文本来源</th>
+<th style="text-align:center">背景</th>
+<th style="text-align:center">图像</th>
+<th style="text-align:center">表格</th>
+<th style="text-align:center">小节标题</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">列表</th>
+<th style="text-align:center">段落</th>
+<th style="text-align:center">平均</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DSSE-200</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center"><strong>84.6</strong></td>
+<td style="text-align:center">83.3</td>
+<td style="text-align:center">79.4</td>
+<td style="text-align:center">58.3</td>
+<td style="text-align:center">61.0</td>
+<td style="text-align:center">66.7</td>
+<td style="text-align:center">77.1</td>
+<td style="text-align:center">73.0</td>
+</tr>
+<tr>
+<td>DSSE-200</td>
+<td style="text-align:center">OCR</td>
+<td style="text-align:center">83.9</td>
+<td style="text-align:center"><strong>83.7</strong></td>
+<td style="text-align:center"><strong>79.7</strong></td>
+<td style="text-align:center"><strong>59.4</strong></td>
+<td style="text-align:center"><strong>61.1</strong></td>
+<td style="text-align:center"><strong>68.4</strong></td>
+<td style="text-align:center"><strong>79.3</strong></td>
+<td style="text-align:center"><strong>73.3</strong></td>
+</tr>
+<tr>
+<td>合成数据集</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">87.7</td>
+<td style="text-align:center">83.1</td>
+<td style="text-align:center">84.3</td>
+<td style="text-align:center">70.8</td>
+<td style="text-align:center">70.9</td>
+<td style="text-align:center">82.3</td>
+<td style="text-align:center">83.1</td>
+<td style="text-align:center">79.6</td>
+</tr>
+<tr>
+<td>合成数据集</td>
+<td style="text-align:center">OCR</td>
+<td style="text-align:center">88.8</td>
+<td style="text-align:center">85.4</td>
+<td style="text-align:center">86.6</td>
+<td style="text-align:center">73.1</td>
+<td style="text-align:center">71.2</td>
+<td style="text-align:center">83.6</td>
+<td style="text-align:center">87.2</td>
+<td style="text-align:center">82.2</td>
+</tr>
+<tr>
+<td>合成数据集</td>
+<td style="text-align:center">真实文本</td>
+<td style="text-align:center"><strong>91.2</strong></td>
+<td style="text-align:center"><strong>90.3</strong></td>
+<td style="text-align:center"><strong>89.0</strong></td>
+<td style="text-align:center"><strong>78.4</strong></td>
+<td style="text-align:center"><strong>75.3</strong></td>
+<td style="text-align:center"><strong>87.5</strong></td>
+<td style="text-align:center"><strong>89.6</strong></td>
+<td style="text-align:center"><strong>86.0</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h2><p>辅助Decoder使用Encoder输出的特征进行重建，以此来提高Encoder的表征能力。如果辅助Decoder能够使用Encoder的特征成功重建出文档图像，则说明Encoder能够很好提取出文档图像的特征。$a_l$为Encoder中第$l$层经过激活函数的特征图，$\bar{a_l}$为辅助Decoder重建出来对应的特征图，这一层的损失函数$L_l=\frac{1}{C_lH_lW_l} \left| a_l-\bar{a_l} \right|_2^2$。</p>
+<p>主Decoder参与一致性学习。目前像素标签比较稀少，但是候选框标签比较容易获得。虽然候选框标签不能直接用于训练，但是可以利用其中的区域信息。同一目标区域内的特征应该更加相似。对于每一个候选框$b$，其一致性损失函数$L=\frac{1}{H_bW_b} \sum_{(i,j) \in b}{\left| p_{(i,j)}-p^b \right|_2^2}$，其中$p_{(i,j)}$为经过激活函数中$(i,j)$处的特征，$p^b=\frac{1}{H_bW_b} \sum_{(i,j) \in b}{p_{(i,j)}}$。通过减小候选框内特征的方差，使得同一目标区域提取的特征更加接近。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Document-Layout-Analysis/" rel="tag"># Document Layout Analysis</a>
+          
+            <a href="/tags/Multimodal/" rel="tag"># Multimodal</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/27/Paper/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-0x0004-Instance-Aware-Document-Image-Segmentation-using-Label-Pyramid-Networks-and-Deep-Watershed-Transformation/" rel="next" title="[论文阅读]0x0004-Instance Aware Document Image Segmentation using Label Pyramid Networks and Deep Watershed Transformation">
+                <i class="fa fa-chevron-left"></i> [论文阅读]0x0004-Instance Aware Document Image Segmentation using Label Pyramid Networks and Deep Watershed Transformation
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://github-pages-winteryangwt.oss-cn-chengdu.aliyuncs.com/setting/avatar.png"
+                alt="Winteryan" />
+            
+              <p class="site-author-name" itemprop="name">Winteryan</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog. I am interested in computer science and I would like to share my knowlegde with everyone.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/winterYANGWT" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:q916090796@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.acfun.cn/u/13517934" target="_blank" title="AcFun">
+                      
+                        <i class="fa fa-fw fa-video-camera"></i>AcFun</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#提出的方法"><span class="nav-number">1.</span> <span class="nav-text">提出的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Encoder和Decoder"><span class="nav-number">1.1.</span> <span class="nav-text">Encoder和Decoder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本嵌入"><span class="nav-number">1.2.</span> <span class="nav-text">文本嵌入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无监督学习"><span class="nav-number">1.3.</span> <span class="nav-text">无监督学习</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2020 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Winteryan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.gt-container a{border-bottom:none;}
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
